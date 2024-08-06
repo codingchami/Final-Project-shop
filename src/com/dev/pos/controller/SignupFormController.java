@@ -18,7 +18,8 @@ public class SignupFormController {
     public void btnRegisterOnAction(ActionEvent actionEvent) {
     }
 
-    public void btnAlreadyHaveOnAction(ActionEvent actionEvent) {
+    public void btnAlreadyHaveOnAction(ActionEvent actionEvent) throws IOException {
+        setUI("LoginForm");
     }
 
     private void setUI(String location) throws IOException {
