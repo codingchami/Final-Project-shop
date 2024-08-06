@@ -1,0 +1,16 @@
+package com.dev.pos.util.security;
+
+import org.mindrot.BCrypt;
+
+public class PasswordManager {
+
+    public static String encrypt(String userPassword){
+        return BCrypt.hashpw(userPassword,BCrypt.gensalt(10));
+    }
+
+    public boolean checkPassword(String userPassword,String hashPassword){
+        return BCrypt.checkpw(userPassword,hashPassword);
+    }
+
+
+}
