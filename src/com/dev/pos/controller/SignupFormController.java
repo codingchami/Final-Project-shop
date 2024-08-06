@@ -28,15 +28,17 @@ public class SignupFormController {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,txtEmail.getText());
             preparedStatement.setString(2, PasswordManager.encrypt(txtPassword.getText().trim()));
+
             int count = preparedStatement.executeUpdate();
             if(count>0){
                 new Alert(Alert.AlertType.INFORMATION,"User has been saved!..........").show();
+                setUI("LoginForm");
             }else{
                 new Alert(Alert.AlertType.INFORMATION,"Something went wrong,Try again!..........").show();
             }
 
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage().toString()).show();
 
         }
