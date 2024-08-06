@@ -7,12 +7,13 @@ import javafx.stage.Stage;
 
 public class AppInitializer extends Application {
     public static void main(String[] args) {
+        launch(args);
 
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("./view/LoginForm.fxml"))));
         primaryStage.show();
         primaryStage.centerOnScreen();
 

@@ -19,7 +19,8 @@ public class LoginFormController {
     public void btnLoginOnAction(ActionEvent actionEvent) {
     }
 
-    public void btnSignupOnAction(ActionEvent actionEvent) {
+    public void btnSignupOnAction(ActionEvent actionEvent) throws IOException {
+        setUI("SignupForm");
     }
 
     private void setUI(String location) throws IOException {
