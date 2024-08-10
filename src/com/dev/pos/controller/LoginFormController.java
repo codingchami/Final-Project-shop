@@ -28,11 +28,15 @@ public class LoginFormController {
             Connection connection = DBConnection.getInstance().getConnection();
             String sql ="SELECT * FROM user WHERE email =?";
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,txtEmail.getText());
             statement.executeQuery();
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-                if(PasswordManager.checkPassword(txtPassword.getText().trim(),resultSet.getString("password")));
-                System.out.println("Done");
+                if(PasswordManager.checkPassword(txtPassword.getText().trim(),resultSet.getString("password"))){
+                    System.out.println("Done");
+                }else{
+                    new Alert(Alert.AlertType.ERROR,"User not found...!").show();
+                }
             }else{
                 new Alert(Alert.AlertType.ERROR,"User not found...!").show();
             }
