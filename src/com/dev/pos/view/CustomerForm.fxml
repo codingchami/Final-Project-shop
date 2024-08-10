@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="context" prefHeight="593.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dev.pos.controller.CustomerFormController">
    <children>
       <Label layoutX="63.0" layoutY="44.0" text="Customer Management" textFill="#0a8686">
@@ -18,8 +17,8 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Separator layoutX="63.0" layoutY="102.0" prefHeight="4.0" prefWidth="523.0" />
-      <JFXButton layoutX="455.0" layoutY="25.0" onAction="#btnBackToHome" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Back To Home" textFill="#fcf9f9">
+      <Separator layoutX="63.0" layoutY="99.0" prefHeight="7.0" prefWidth="672.0" />
+      <JFXButton layoutX="554.0" layoutY="25.0" onAction="#btnBackToHome" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Back To Home" textFill="#fcf9f9">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -31,7 +30,7 @@
       <JFXTextField fx:id="txtContact" layoutX="391.0" layoutY="124.0" promptText="Contact" />
       <JFXTextField fx:id="txtName" layoutX="216.0" layoutY="124.0" promptText="Name" />
       <JFXTextField fx:id="txtSalary" layoutX="581.0" layoutY="124.0" promptText="Salary" />
-      <JFXButton layoutX="238.0" layoutY="190.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Save Customer" textFill="#fcf9f9">
+      <JFXButton layoutX="304.0" layoutY="187.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Save Customer" textFill="#fcf9f9">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -39,15 +38,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXTextField fx:id="txtSearch" alignment="CENTER" layoutX="29.0" layoutY="240.0" prefHeight="31.0" prefWidth="600.0" promptText="Search Here" />
-      <TableView fx:id="tblCustomer" layoutX="38.0" layoutY="286.0" prefHeight="298.0" prefWidth="567.0">
+      <JFXTextField fx:id="txtSearch" alignment="CENTER" layoutX="85.0" layoutY="236.0" prefHeight="31.0" prefWidth="600.0" promptText="Search Here" />
+      <TableView fx:id="tblCustomer" layoutX="19.0" layoutY="281.0" prefHeight="298.0" prefWidth="745.0">
         <columns>
           <TableColumn fx:id="colNo" prefWidth="75.0" text="No" />
-          <TableColumn fx:id="colEmail" prefWidth="100.0" text="Email" />
-            <TableColumn fx:id="colName" prefWidth="105.0" text="Name" />
-            <TableColumn fx:id="colContact" prefWidth="111.0" text="Contact" />
-            <TableColumn fx:id="colSalary" prefWidth="77.0" text="Salary" />
-            <TableColumn fx:id="colDelete" prefWidth="98.0" text="Delete" />
+          <TableColumn fx:id="colEmail" prefWidth="202.0" text="Email" />
+            <TableColumn fx:id="colName" prefWidth="147.0" text="Name" />
+            <TableColumn fx:id="colContact" prefWidth="117.0" text="Contact" />
+            <TableColumn fx:id="colSalary" prefWidth="107.0" text="Salary" />
+            <TableColumn fx:id="colDelete" prefWidth="96.0" text="Delete" />
         </columns>
       </TableView>
    </children>
