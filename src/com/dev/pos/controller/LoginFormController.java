@@ -23,7 +23,7 @@ public class LoginFormController {
     public JFXTextField txtEmail;
     public JFXPasswordField txtPassword;
 
-    public void btnLoginOnAction(ActionEvent actionEvent) {
+    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             String sql ="SELECT * FROM user WHERE email =?";
@@ -33,7 +33,8 @@ public class LoginFormController {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
                 if(PasswordManager.checkPassword(txtPassword.getText().trim(),resultSet.getString("password"))){
-                    System.out.println("Done");
+//                    System.out.println("Done");
+                    setUI("DashboardForm");
                 }else{
                     new Alert(Alert.AlertType.ERROR,"User not found...!").show();
                 }
@@ -43,6 +44,7 @@ public class LoginFormController {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     public void btnSignupOnAction(ActionEvent actionEvent) throws IOException {
