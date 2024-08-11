@@ -13,16 +13,19 @@ public class DatabaseAccessCode {
 
     //...............User..........Start...........
 
-//    public static boolean createUser(String email,String password) {
-//
-//        Connection connection = DBConnection.getInstance().getConnection();
-//        String sql = "INSERT INTO user VALUES(?,?)";
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//        preparedStatement.setString(1, txtEmail.getText());
-//        preparedStatement.setString(2, PasswordManager.encrypt(txtPassword.getText().trim()));
-//
-//
-//    }
+    public static boolean createUser(String email,String password) throws SQLException, ClassNotFoundException {
+
+            Connection connection = DBConnection.getInstance().getConnection();
+            String sql = "INSERT INTO user VALUES(?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,email);
+            preparedStatement.setString(2, PasswordManager.encrypt(password));
+
+            return preparedStatement.executeUpdate()>0;
+
+    }
+
+    public static User()
 
     //...............User..........End.............
 }
