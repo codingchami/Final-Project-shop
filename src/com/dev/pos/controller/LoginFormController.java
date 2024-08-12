@@ -1,6 +1,8 @@
 package com.dev.pos.controller;
 
+import com.dev.pos.dao.DatabaseAccessCode;
 import com.dev.pos.db.DBConnection;
+import com.dev.pos.dto.UserDTO;
 import com.dev.pos.util.security.PasswordManager;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -25,25 +27,16 @@ public class LoginFormController {
 
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            String sql ="SELECT * FROM user WHERE email =?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,txtEmail.getText());
-            statement.executeQuery();
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                if(PasswordManager.checkPassword(txtPassword.getText().trim(),resultSet.getString("password"))){
-//                    System.out.println("Done");
-                    setUI("DashboardForm");
-                }else{
-                    new Alert(Alert.AlertType.ERROR,"User not found...!").show();
-                }
+            UserDTO user = DatabaseAccessCode.findUser(txtEmail.getText());
+            if(PasswordManager.checkPassword(txtPassword.getText(),user.getPassword())){
+                setUI("DashboardForm");
             }else{
-                new Alert(Alert.AlertType.ERROR,"User not found...!").show();
+                new Alert(Alert.AlertType.INFORMATION,"User Not Found.....!").show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+        }catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
         }
+
 
     }
 

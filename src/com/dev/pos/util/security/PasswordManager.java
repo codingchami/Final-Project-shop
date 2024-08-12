@@ -5,7 +5,6 @@ import org.mindrot.BCrypt;
 public class PasswordManager {
 
     public static String encrypt(String userPassword){
-
         return BCrypt.hashpw(userPassword,BCrypt.gensalt(10));
     }
 
