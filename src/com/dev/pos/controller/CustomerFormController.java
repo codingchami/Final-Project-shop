@@ -65,8 +65,7 @@ try {
             }
         }
     } catch (ClassNotFoundException | SQLException e){
-
-    e.printStackTrace();
+        e.printStackTrace();
 
     }
 
