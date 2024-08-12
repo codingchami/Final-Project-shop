@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseAccessCode {
@@ -83,8 +84,13 @@ public class DatabaseAccessCode {
         return statement.executeUpdate()>0;
 
     }
-    public static boolean deleteCustomer(CustomerDTO dto){
-        return false;
+    public static boolean deleteCustomer(String email) throws SQLException, ClassNotFoundException {
+
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "DELETE FROM customer WHERE email = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,email);
+        return statement.executeUpdate()>0;
 
     }
 
@@ -106,12 +112,53 @@ public class DatabaseAccessCode {
         return null;
     }
 
-    public static List<CustomerDTO> findAllCustomer(){
-        return null;
+    public static List<CustomerDTO> findAllCustomer() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM customer ";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        while (resultSet.next()){
+            customerDTOList.add(
+                    new CustomerDTO(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getDouble(4)
+                    )
+            );
+
+        }
+
+        return customerDTOList;
     }
 
-    public static List<CustomerDTO> searchCustomer(String SearchText){
-        return null;
+    public static List<CustomerDTO> searchCustomer(String SearchText) throws SQLException, ClassNotFoundException {
+
+        SearchText = "%"+SearchText+"%";
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM customer WHERE email LIKE ? || name LIKE ? || contact LIKE ? ";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1,SearchText);
+        statement.setString(2,SearchText);
+        statement.setString(3,SearchText);
+
+
+        ResultSet resultSet = statement.executeQuery();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        while(resultSet.next()){
+            customerDTOList.add(new CustomerDTO(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4)
+            ));
+        }
+
+        return customerDTOList;
     }
 
 
