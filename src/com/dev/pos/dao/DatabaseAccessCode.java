@@ -1,6 +1,7 @@
 package com.dev.pos.dao;
 
 import com.dev.pos.db.DBConnection;
+import com.dev.pos.dto.CustomerDTO;
 import com.dev.pos.dto.UserDTO;
 import com.dev.pos.util.security.PasswordManager;
 import javafx.scene.control.Alert;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class DatabaseAccessCode {
 
@@ -55,6 +57,54 @@ public class DatabaseAccessCode {
     //...............User..........End.............
 
 //    ...............Customer ....Start........
+
+    public static boolean createCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "INSERT INTO customer VALUES(?,?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, dto.getEmail());
+        statement.setString(2, dto.getName());
+        statement.setString(3, dto.getContact());
+        statement.setDouble(4, dto.getSalary());
+
+        return statement.executeUpdate()>0;
+
+    }
+
+    public static boolean updateCustomer(CustomerDTO dto){
+        return false;
+    }
+    public static boolean deleteCustomer(CustomerDTO dto){
+        return false;
+
+    }
+
+    public static CustomerDTO findCustomer(String email) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM customer WHERE email =?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,email);
+        ResultSet resultSet = statement.executeQuery();
+
+        if(resultSet.next()){
+            return new CustomerDTO(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4)
+            );
+        }
+        return null;
+    }
+
+    public static List<CustomerDTO> findAllCustomer(){
+        return null;
+    }
+
+    public static List<CustomerDTO> searchCustomer(String SearchText){
+        return null;
+    }
 
 
 

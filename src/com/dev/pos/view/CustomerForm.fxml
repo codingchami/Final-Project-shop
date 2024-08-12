@@ -30,7 +30,7 @@
       <JFXTextField fx:id="txtContact" layoutX="391.0" layoutY="124.0" promptText="Contact" />
       <JFXTextField fx:id="txtName" layoutX="216.0" layoutY="124.0" promptText="Name" />
       <JFXTextField fx:id="txtSalary" layoutX="581.0" layoutY="124.0" promptText="Salary" />
-      <JFXButton layoutX="304.0" layoutY="187.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Save Customer" textFill="#fcf9f9">
+      <JFXButton fx:id="btnSave" layoutX="304.0" layoutY="187.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #0CABA8;" text="Save Customer" textFill="#fcf9f9">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
