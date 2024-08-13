@@ -49,6 +49,11 @@ public class CustomerFormController {
         colDelete.setCellValueFactory(new PropertyValueFactory<>("button"));
 
         loadCustomer(SearchText);
+
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            SearchText = newValue;
+            loadCustomer(SearchText);
+        });
     }
 
 
@@ -79,6 +84,7 @@ try {
                 if(isSaved){
                     new Alert(Alert.AlertType.INFORMATION,"Customer has been saved....!").show();
                     clearFields();
+                    loadCustomer(SearchText);
                 }else{
                     new Alert(Alert.AlertType.INFORMATION,"Something went wrong,Try again.....!").show();
                 }
