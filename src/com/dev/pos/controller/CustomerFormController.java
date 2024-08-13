@@ -49,14 +49,29 @@ public class CustomerFormController {
         colDelete.setCellValueFactory(new PropertyValueFactory<>("button"));
 
         loadCustomer(SearchText);
-
+        //listner for search bar
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             SearchText = newValue;
             loadCustomer(SearchText);
         });
+
+        //listner for table
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue!=null){
+                setData(newValue);
+            }
+        });
     }
 
+    private void setData(CustomerTm newValue) {
+        txtEmail.setEditable(false);
+        btnSave.setText("Update Customer");
 
+        txtName.setText(newValue.getName());
+        txtContact.setText(newValue.getContact());
+        txtSalary.setText(String.valueOf(newValue.getSalary()));
+        txtEmail.setText(newValue.getEmail());
+    }
 
 
     public void btnBackToHome(ActionEvent actionEvent) throws IOException {
@@ -125,7 +140,6 @@ try {
                         dto.getContact(),
                         dto.getSalary(),
                         button
-
                 );
                 counter++;
                 oblist.add(customerTm);
