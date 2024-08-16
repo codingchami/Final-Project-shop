@@ -161,8 +161,17 @@ public class DatabaseAccessCode {
         return customerDTOList;
     }
 
-
-
-
 //    ...............Customer......End..........
+
+
+//................Product.........Start..............
+
+
+
+
+
+
+
+//................Product.........End.................
+
 }

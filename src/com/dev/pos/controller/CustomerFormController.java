@@ -10,16 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class CustomerFormController {
 
@@ -152,6 +150,27 @@ try {
                 );
                 counter++;
                 oblist.add(customerTm);
+
+                //Customer Delete
+                button.setOnAction(event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION,"Are you sure..?", ButtonType.YES,ButtonType.NO);
+                    Optional<ButtonType> buttonType = alert.showAndWait();
+                    if(buttonType.get().equals(ButtonType.YES)){
+                        try{
+                            boolean isDeleted = DatabaseAccessCode.deleteCustomer(dto.getEmail());
+                            if(isDeleted){
+                                new Alert(Alert.AlertType.INFORMATION,"Customer has been Deleted....!").show();
+                                loadCustomer(SearchText);
+                                clearFields();
+                                btnSave.setText("Save Customer");
+
+                            }
+                        }catch (ClassNotFoundException | SQLException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
 
             }
             tblCustomer.setItems(oblist);
