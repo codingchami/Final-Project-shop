@@ -26,13 +26,15 @@ public class DashboardFormController {
         setUI("CustomerForm");
     }
 
-    public void btnOrderDetailsOnAction(ActionEvent actionEvent) {
+    public void btnOrderDetailsOnAction(ActionEvent actionEvent) throws IOException {
+
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
     }
 
-    public void btnProdductOnAction(ActionEvent actionEvent) {
+    public void btnProdductOnAction(ActionEvent actionEvent) throws IOException {
+        setUI("ProductMainForm");
     }
 
     public void btnIncomereportOnAction(ActionEvent actionEvent) {
