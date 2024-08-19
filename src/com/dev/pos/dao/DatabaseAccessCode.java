@@ -1,5 +1,6 @@
 package com.dev.pos.dao;
 
+import com.dev.pos.Entity.User;
 import com.dev.pos.dao.custom.CustomerDao;
 import com.dev.pos.dao.custom.ProductDao;
 import com.dev.pos.dao.custom.UserDao;
@@ -29,14 +30,21 @@ public class DatabaseAccessCode {
 
     //...............User..........Start...........
 
-    public static boolean createUser(UserDTO userDTO) throws SQLException, ClassNotFoundException {
-
-
-
+    public  boolean createUser(UserDTO userDTO) throws SQLException, ClassNotFoundException {
+        return userDao.saveUser(
+                new User(
+                     userDTO.getEmail(),
+                     userDTO.getPassword()
+                )
+        );
     }
 
-    public static UserDTO findUser(String email) throws SQLException, ClassNotFoundException {
-
+    public  UserDTO findUser(String email) throws SQLException, ClassNotFoundException {
+        User user = userDao.findUser(email);
+        return new UserDTO(
+                user.getEmail(),
+                user.getPassword()
+        );
 
     }
 
