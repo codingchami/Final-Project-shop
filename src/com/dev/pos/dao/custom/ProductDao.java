@@ -13,7 +13,7 @@ public interface ProductDao {
 
     public Product findProduct(int code);
 
-    public List<Product> searchProduct(int code);
+    public List<Product> searchProduct(String value);
 
     public int getLastProductId();
 
