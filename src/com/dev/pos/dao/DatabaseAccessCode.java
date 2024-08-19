@@ -21,39 +21,13 @@ public class DatabaseAccessCode {
 
     public static boolean createUser(UserDTO userDTO) throws SQLException, ClassNotFoundException {
 
-            Connection connection = DBConnection.getInstance().getConnection();
-            String sql = "INSERT INTO user VALUES(?,?)";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,userDTO.getEmail());
-            preparedStatement.setString(2, PasswordManager.encrypt(userDTO.getPassword()));
-
-            return preparedStatement.executeUpdate()>0;
 
     }
 
     public static UserDTO findUser(String email) throws SQLException, ClassNotFoundException {
 
-            Connection connection = DBConnection.getInstance().getConnection();
-            String sql ="SELECT * FROM user WHERE email =?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,email);
-            ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()){
-
-//                UserDTO userDTO = new UserDTO();
-//                userDTO.setEmail(resultSet.getString(1));
-//                userDTO.setPassword(resultSet.getString(2));
-//
-//                return userDTO;
-
-                return new UserDTO(
-                        resultSet.getString(1),
-                        resultSet.getString(2)
-                );
-            }
-            return null;
     }
 
     //...............User..........End.............
@@ -221,7 +195,7 @@ public class DatabaseAccessCode {
          }
          return null;
     }
-    
+
     public List<ProductDTO> findAllProduct() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT * FROM product";
