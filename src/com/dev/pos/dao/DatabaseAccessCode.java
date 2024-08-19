@@ -1,5 +1,11 @@
 package com.dev.pos.dao;
 
+import com.dev.pos.dao.custom.CustomerDao;
+import com.dev.pos.dao.custom.ProductDao;
+import com.dev.pos.dao.custom.UserDao;
+import com.dev.pos.dao.impl.CustomerDaoImpl;
+import com.dev.pos.dao.impl.ProductDaoImpl;
+import com.dev.pos.dao.impl.UserDaoImpl;
 import com.dev.pos.db.DBConnection;
 import com.dev.pos.dto.CustomerDTO;
 import com.dev.pos.dto.ProductDTO;
@@ -16,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseAccessCode {
+
+    CustomerDao customerDao = new CustomerDaoImpl();
+    UserDao userDao = new UserDaoImpl();
+    ProductDao productDao = new ProductDaoImpl();
 
     //...............User..........Start...........
 
@@ -81,45 +91,15 @@ public class DatabaseAccessCode {
     }
 
     public static boolean deleteProduct(int code) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "DELETE FROM product WHERE code=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1,code);
-        return statement.executeUpdate()>0;
+
     }
 
     public ProductDTO findProduct(int code) throws SQLException, ClassNotFoundException {
-         Connection connection = DBConnection.getInstance().getConnection();
-         String sql = "SELECT * FROM product WHERE code=?";
-         PreparedStatement statement = connection.prepareStatement(sql);
-         statement.setInt(1,code);
-         ResultSet resultSet = statement.executeQuery();
 
-         if(resultSet.next()){
-             return new ProductDTO(
-                     resultSet.getInt(1),
-                     resultSet.getString(2)
-             );
-         }
-         return null;
     }
 
     public List<ProductDTO> findAllProduct() throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM product";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
 
-        List<ProductDTO> productDTOList = new ArrayList<>();
-
-        while (resultSet.next()){
-            productDTOList.add(new ProductDTO(
-                    resultSet.getInt(1),
-                    resultSet.getString(2)
-            ));
-        }
-
-        return productDTOList;
 
     }
 
