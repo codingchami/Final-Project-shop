@@ -16,7 +16,7 @@ public interface CustomerDao {
 
     public List<Customer> findAllCustomer();
 
-    public List<Customer> searchCustomer();
+    public List<Customer> searchCustomer(String value);
 
 
 
