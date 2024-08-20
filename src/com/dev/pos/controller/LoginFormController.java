@@ -27,7 +27,7 @@ public class LoginFormController {
 
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         try {
-            UserDTO user = DatabaseAccessCode.findUser(txtEmail.getText());
+            UserDTO user = new DatabaseAccessCode().findUser(txtEmail.getText());
 
             if(user!=null){
                 if(PasswordManager.checkPassword(txtPassword.getText(),user.getPassword())){

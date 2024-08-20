@@ -85,14 +85,14 @@ public class CustomerFormController {
 try {
     if (btnSave.getText().equalsIgnoreCase("Save Customer")) {
 
-        CustomerDTO customer = DatabaseAccessCode.findCustomer(txtEmail.getText());
+        CustomerDTO customer = new DatabaseAccessCode().findCustomer(txtEmail.getText());
 
 
 
         if (customer != null) {
             new Alert(Alert.AlertType.INFORMATION,"Customer is already saved!.......").show();
             }else{
-                boolean isSaved = DatabaseAccessCode.createCustomer(dto);
+                boolean isSaved = new DatabaseAccessCode().createCustomer(dto);
 
                 if(isSaved){
                     new Alert(Alert.AlertType.INFORMATION,"Customer has been saved....!").show();
@@ -103,7 +103,7 @@ try {
                 }
             }
         }else{
-         boolean isUpdated = DatabaseAccessCode.updateCustomer(dto);
+         boolean isUpdated = new DatabaseAccessCode().updateCustomer(dto);
          if(isUpdated){
              new Alert(Alert.AlertType.INFORMATION,"Customer has been updated!...").show();
              txtEmail.setEditable(true);
@@ -138,7 +138,7 @@ try {
         ObservableList<CustomerTm> oblist = FXCollections.observableArrayList();
         try{
             int counter = 1;
-            for(CustomerDTO dto : DatabaseAccessCode.searchCustomer(SearchText)){
+            for(CustomerDTO dto : new DatabaseAccessCode().searchCustomer(SearchText)){
                 Button button = new Button("Delete");
                 CustomerTm customerTm = new CustomerTm(
                         counter,
@@ -157,7 +157,7 @@ try {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if(buttonType.get().equals(ButtonType.YES)){
                         try{
-                            boolean isDeleted = DatabaseAccessCode.deleteCustomer(dto.getEmail());
+                            boolean isDeleted = new DatabaseAccessCode().deleteCustomer(dto.getEmail());
                             if(isDeleted){
                                 new Alert(Alert.AlertType.INFORMATION,"Customer has been Deleted....!").show();
                                 loadCustomer(SearchText);

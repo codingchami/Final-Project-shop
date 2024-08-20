@@ -26,7 +26,7 @@ public class SignupFormController {
     public void btnRegisterOnAction(ActionEvent actionEvent) throws IOException {
         try{
             UserDTO userDTO = new UserDTO(txtEmail.getText(),txtPassword.getText().trim());
-            boolean isSaved = DatabaseAccessCode.createUser(userDTO);
+            boolean isSaved = new DatabaseAccessCode().createUser(userDTO);
             if(isSaved){
                 new Alert(Alert.AlertType.INFORMATION,"User has been saved....!").show();
                 setUI("LoginForm");
