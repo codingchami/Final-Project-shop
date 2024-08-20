@@ -1,6 +1,7 @@
 package com.dev.pos.dao;
 
 import com.dev.pos.Entity.Customer;
+import com.dev.pos.Entity.Product;
 import com.dev.pos.Entity.User;
 import com.dev.pos.dao.custom.CustomerDao;
 import com.dev.pos.dao.custom.ProductDao;
@@ -134,34 +135,65 @@ public class DatabaseAccessCode {
 
 //................Product.........Start..............
 
-    public static int getLastProductId() throws SQLException, ClassNotFoundException {
+    public int getLastProductId() throws SQLException, ClassNotFoundException {
+        return productDao.getLastProductId();
+    }
+
+    public boolean saveProduct(ProductDTO dto) throws SQLException, ClassNotFoundException {
+        return productDao.saveProduct(
+                new Product(
+                        dto.getCode(),
+                        dto.getDescription()
+                )
+        );
+    }
+
+    public boolean updateProduct(ProductDTO dto) throws SQLException, ClassNotFoundException {
+        return productDao.updateProduct(
+                new Product(
+                        dto.getCode(),
+                        dto.getDescription()
+                )
+        );
 
     }
 
-    public static boolean saveProduct(ProductDTO dto) throws SQLException, ClassNotFoundException {
-
-    }
-
-    public static boolean updateProduct(ProductDTO dto) throws SQLException, ClassNotFoundException {
-
-
-    }
-
-    public static boolean deleteProduct(int code) throws SQLException, ClassNotFoundException {
-
+    public boolean deleteProduct(int code) throws SQLException, ClassNotFoundException {
+        return productDao.deleteProduct(code);
     }
 
     public ProductDTO findProduct(int code) throws SQLException, ClassNotFoundException {
-
+        Product product = productDao.findProduct(code);
+        return new ProductDTO(
+                product.getCode(),
+                product.getDescription()
+        );
     }
 
     public List<ProductDTO> findAllProduct() throws SQLException, ClassNotFoundException {
-
-
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for(Product p:productDao.findAllProduct()){
+            productDTOList.add(
+                    new ProductDTO(
+                            p.getCode(),
+                            p.getDescription()
+                    )
+            );
+        }
+        return productDTOList;
     }
 
     public List<ProductDTO> searchProduct(String searchText) throws SQLException, ClassNotFoundException {
-
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for(Product p : productDao.searchProduct(searchText)){
+            productDTOList.add(
+                    new ProductDTO(
+                            p.getCode(),
+                            p.getDescription()
+                    )
+            );
+        }
+        return productDTOList;
     }
 
 
