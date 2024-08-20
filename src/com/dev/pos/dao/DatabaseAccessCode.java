@@ -1,5 +1,6 @@
 package com.dev.pos.dao;
 
+import com.dev.pos.Entity.Customer;
 import com.dev.pos.Entity.User;
 import com.dev.pos.dao.custom.CustomerDao;
 import com.dev.pos.dao.custom.ProductDao;
@@ -41,42 +42,90 @@ public class DatabaseAccessCode {
 
     public  UserDTO findUser(String email) throws SQLException, ClassNotFoundException {
         User user = userDao.findUser(email);
-        return new UserDTO(
-                user.getEmail(),
-                user.getPassword()
-        );
-
+        if(user!=null){
+            return new UserDTO(
+                    user.getEmail(),
+                    user.getPassword()
+            );
+        }
+        return null;
     }
 
     //...............User..........End.............
 
 //    ...............Customer ....Start........
 
-    public static boolean createCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean createCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return customerDao.saveCustomer(
+                new Customer(
+                        dto.getEmail(),
+                        dto.getName(),
+                        dto.getContact(),
+                        dto.getSalary()
+                )
+        );
 
 
     }
 
-    public static boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-
-
-    }
-    public static boolean deleteCustomer(String email) throws SQLException, ClassNotFoundException {
-
-
-
-    }
-
-    public static CustomerDTO findCustomer(String email) throws SQLException, ClassNotFoundException {
+    public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return customerDao.updateCustomer(
+                new Customer(
+                        dto.getEmail(),
+                        dto.getName(),
+                        dto.getContact(),
+                        dto.getSalary()
+                )
+        );
 
     }
-
-    public static List<CustomerDTO> findAllCustomer() throws SQLException, ClassNotFoundException {
+    public boolean deleteCustomer(String email) throws SQLException, ClassNotFoundException {
+        return customerDao.deleteCustomer(email);
 
     }
 
-    public static List<CustomerDTO> searchCustomer(String SearchText) throws SQLException, ClassNotFoundException {
+    public CustomerDTO findCustomer(String email) throws SQLException, ClassNotFoundException {
+        Customer customer = customerDao.findCustomer(email);
+        if(customer!=null){
+            return new CustomerDTO(
+                    customer.getEmail(),
+                    customer.getName(),
+                    customer.getContact(),
+                    customer.getSalary()
+            );
+        }
+        return null;
+    }
 
+    public List<CustomerDTO> findAllCustomer() throws SQLException, ClassNotFoundException {
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        for(Customer c:customerDao.findAllCustomer()){
+            customerDTOS.add(
+                    new CustomerDTO(
+                            c.getEmail(),
+                            c.getName(),
+                            c.getContact(),
+                            c.getSalary()
+                    )
+            );
+        }
+        return customerDTOS;
+
+    }
+
+    public List<CustomerDTO> searchCustomer(String SearchText) throws SQLException, ClassNotFoundException {
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        for(Customer c: customerDao.searchCustomer(SearchText)){
+            customerDTOList.add(
+                    new CustomerDTO(
+                            c.getEmail(),
+                            c.getName(),
+                            c.getContact(),
+                            c.getSalary()
+                    )
+            );
+        }
+        return customerDTOList;
 
     }
 
