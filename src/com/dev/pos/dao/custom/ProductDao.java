@@ -10,4 +10,6 @@ public interface ProductDao extends CrudDao<Product,Integer> {
 
     public int getLastProductId() throws SQLException, ClassNotFoundException;
 
+    public List<Product> searchByDescription(String value) throws SQLException, ClassNotFoundException;
+
 }

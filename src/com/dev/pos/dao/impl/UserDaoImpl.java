@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     @Override
-    public boolean saveUser(User user) throws SQLException, ClassNotFoundException {
+    public boolean save(User user) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         String sql = "INSERT INTO user VALUES(?,?)";
 
@@ -26,17 +26,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public boolean update(User user) {
         return false;
     }
 
     @Override
-    public boolean deleteUser(String email) {
+    public boolean delete(String email) {
         return false;
     }
 
     @Override
-    public User findUser(String email) throws SQLException, ClassNotFoundException {
+    public User find(String email) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         String sql ="SELECT * FROM user WHERE email =?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -60,7 +60,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllUser() {
+    public List<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public List<User> search(String s) throws SQLException, ClassNotFoundException {
         return null;
     }
 }
