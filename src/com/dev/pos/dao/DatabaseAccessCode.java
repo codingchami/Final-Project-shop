@@ -13,13 +13,7 @@ import com.dev.pos.db.DBConnection;
 import com.dev.pos.dto.CustomerDTO;
 import com.dev.pos.dto.ProductDTO;
 import com.dev.pos.dto.UserDTO;
-import com.dev.pos.util.security.PasswordManager;
-import javafx.scene.control.Alert;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,10 +158,13 @@ public class DatabaseAccessCode {
 
     public ProductDTO findProduct(int code) throws SQLException, ClassNotFoundException {
         Product product = productDao.findProduct(code);
-        return new ProductDTO(
-                product.getCode(),
-                product.getDescription()
-        );
+        if(product!=null){
+            return new ProductDTO(
+                    product.getCode(),
+                    product.getDescription()
+            );
+        }
+        return null;
     }
 
     public List<ProductDTO> findAllProduct() throws SQLException, ClassNotFoundException {

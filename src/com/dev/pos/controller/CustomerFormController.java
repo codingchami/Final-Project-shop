@@ -73,7 +73,7 @@ public class CustomerFormController {
 
 
     public void btnBackToHome(ActionEvent actionEvent) throws IOException {
-        setUI("LoginForm");
+        setUI("DashboardForm");
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
