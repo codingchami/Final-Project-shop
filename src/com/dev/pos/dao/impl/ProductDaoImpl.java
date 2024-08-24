@@ -1,6 +1,7 @@
 package com.dev.pos.dao.impl;
 
 import com.dev.pos.Entity.Product;
+import com.dev.pos.dao.CrudUtil;
 import com.dev.pos.dao.custom.ProductDao;
 import com.dev.pos.db.DBConnection;
 import com.dev.pos.dto.ProductDTO;
@@ -15,24 +16,23 @@ import java.util.List;
 public class ProductDaoImpl implements ProductDao {
     @Override
     public boolean save(Product product) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
         String sql ="INSERT INTO product VALUES(?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1,product.getCode());
-        statement.setString(2,product.getDescription());
-        return statement.executeUpdate()>0;
+        return CrudUtil.execute(
+                sql,
+                product.getCode(),
+                product.getDescription()
+        );
     }
 
     @Override
     public boolean update(Product product) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "UPDATE product SET description=? WHERE code =?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1,product.getDescription());
-        statement.setInt(2,product.getCode());
-        return statement.executeUpdate()>0;
-    }
 
+        String sql = "UPDATE product SET description=? WHERE code =?";
+        return CrudUtil.execute(
+                sql,product.getDescription(),
+                product.getCode()
+        );
+    }
     @Override
     public boolean delete(Integer code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
@@ -44,11 +44,8 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product find(Integer code) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT * FROM product WHERE code=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1,code);
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet =CrudUtil.execute(sql,code);
 
         if(resultSet.next()){
             return new Product(
@@ -62,10 +59,8 @@ public class ProductDaoImpl implements ProductDao {
 
 
     public List<Product> findAll() throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT * FROM product";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet =CrudUtil.execute(sql);
 
         List<Product> productList = new ArrayList<>();
 
@@ -77,8 +72,6 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         return productList;
-
-
     }
 
     @Override
@@ -108,10 +101,8 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public int getLastProductId() throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT code FROM product ORDER BY code DESC LIMIT 1";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet = CrudUtil.execute(sql);
 
         if(resultSet.next()){
             return resultSet.getInt(1)+1;
@@ -122,11 +113,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> searchByDescription(String value) throws SQLException, ClassNotFoundException {
         value="%"+value+"%";
-        Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT * FROM product WHERE description LIKE ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1,value);
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet = CrudUtil.execute(sql,value);
 
         List<Product> productList = new ArrayList<>();
 
