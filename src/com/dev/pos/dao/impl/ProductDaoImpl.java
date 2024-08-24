@@ -4,8 +4,6 @@ import com.dev.pos.Entity.Product;
 import com.dev.pos.dao.CrudUtil;
 import com.dev.pos.dao.custom.ProductDao;
 import com.dev.pos.db.DBConnection;
-import com.dev.pos.dto.ProductDTO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

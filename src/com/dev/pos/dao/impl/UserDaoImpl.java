@@ -1,5 +1,6 @@
 package com.dev.pos.dao.impl;
 
+
 import com.dev.pos.Entity.User;
 import com.dev.pos.dao.CrudUtil;
 import com.dev.pos.dao.custom.UserDao;
@@ -7,6 +8,7 @@ import com.dev.pos.util.security.PasswordManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 
 public class UserDaoImpl implements UserDao {
     @Override

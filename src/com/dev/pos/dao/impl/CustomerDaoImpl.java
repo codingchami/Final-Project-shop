@@ -3,11 +3,6 @@ package com.dev.pos.dao.impl;
 import com.dev.pos.Entity.Customer;
 import com.dev.pos.dao.CrudUtil;
 import com.dev.pos.dao.custom.CustomerDao;
-import com.dev.pos.db.DBConnection;
-import com.dev.pos.dto.CustomerDTO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
