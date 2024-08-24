@@ -3,6 +3,7 @@ package com.dev.pos.dao;
 import com.dev.pos.Entity.Customer;
 import com.dev.pos.Entity.Product;
 import com.dev.pos.Entity.User;
+import com.dev.pos.Enum.DaoType;
 import com.dev.pos.dao.custom.CustomerDao;
 import com.dev.pos.dao.custom.ProductDao;
 import com.dev.pos.dao.custom.UserDao;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class DatabaseAccessCode {
 
-    CustomerDao customerDao = new CustomerDaoImpl();
-    UserDao userDao = new UserDaoImpl();
-    ProductDao productDao = new ProductDaoImpl();
+    CustomerDao customerDao = DaoFactory.getInstance().getDao(DaoType.CUSTOMER);
+    UserDao userDao = DaoFactory.getInstance().getDao(DaoType.USER);
+    ProductDao productDao = DaoFactory.getInstance().getDao(DaoType.PRODUCT);
 
     //...............User..........Start...........
 
