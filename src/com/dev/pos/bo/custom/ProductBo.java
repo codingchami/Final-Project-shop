@@ -3,21 +3,22 @@ package com.dev.pos.bo.custom;
 import com.dev.pos.Entity.Product;
 import com.dev.pos.dto.ProductDTO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductBo {
 
-    public boolean saveProduct(ProductDTO dto);
+    public boolean saveProduct(ProductDTO dto) throws SQLException, ClassNotFoundException;
 
-    public boolean updateProduct(ProductDTO dto);
+    public boolean updateProduct(ProductDTO dto) throws SQLException, ClassNotFoundException;
 
-    public boolean deleteProduct(int code);
+    public boolean deleteProduct(int code) throws SQLException, ClassNotFoundException;
 
-    public ProductDTO findProduct(int code);
+    public ProductDTO findProduct(int code) throws SQLException, ClassNotFoundException;
 
-    public List<ProductDTO> findAllProducts();
+    public List<ProductDTO> findAllProducts() throws SQLException, ClassNotFoundException;
 
-    public List<Product> searchByDescription(String value);
+    public List<ProductDTO> searchByDescription(String value) throws SQLException, ClassNotFoundException;
 
-    public int getLastProductId();
+    public int getLastProductId() throws SQLException, ClassNotFoundException;
 }
