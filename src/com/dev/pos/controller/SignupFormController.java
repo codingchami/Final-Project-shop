@@ -1,5 +1,8 @@
 package com.dev.pos.controller;
 
+import com.dev.pos.Enum.BoType;
+import com.dev.pos.bo.BoFactory;
+import com.dev.pos.bo.custom.UserBo;
 import com.dev.pos.dao.DatabaseAccessCode;
 import com.dev.pos.db.DBConnection;
 import com.dev.pos.dto.UserDTO;
@@ -23,10 +26,12 @@ public class SignupFormController {
     public JFXTextField txtEmail;
     public JFXPasswordField txtPassword;
 
+    UserBo userBo = BoFactory.getInstance().getBo(BoType.USER);
+
     public void btnRegisterOnAction(ActionEvent actionEvent) throws IOException {
         try{
             UserDTO userDTO = new UserDTO(txtEmail.getText(),txtPassword.getText().trim());
-            boolean isSaved = new DatabaseAccessCode().createUser(userDTO);
+            boolean isSaved = userBo.saveUser(userDTO);
             if(isSaved){
                 new Alert(Alert.AlertType.INFORMATION,"User has been saved....!").show();
                 setUI("LoginForm");
