@@ -55,7 +55,8 @@ public class ProductMainFormController {
         }
     }
 
-    public void btnBackToHome(ActionEvent actionEvent) {
+    public void btnBackToHome(ActionEvent actionEvent) throws IOException {
+        setUI("DashboardForm");
     }
 
     public void btnAddNewProductOnAction(ActionEvent actionEvent) {
@@ -73,5 +74,9 @@ public class ProductMainFormController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/"+location+".fxml"))));
         stage.show();
         stage.centerOnScreen();
+    }
+
+    private void loadAllProducts(String searchText){
+
     }
 }

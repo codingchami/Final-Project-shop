@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Qr">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/Qr" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/Qr" recursive="false" />
+  </library>
+</component>
