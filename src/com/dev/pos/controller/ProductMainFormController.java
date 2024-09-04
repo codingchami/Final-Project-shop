@@ -4,14 +4,20 @@ import com.dev.pos.Enum.BoType;
 import com.dev.pos.bo.BoFactory;
 import com.dev.pos.bo.custom.ProductBo;
 import com.dev.pos.dao.DatabaseAccessCode;
+import com.dev.pos.dto.ProductDTO;
+import com.dev.pos.dto.tm.ProductTm;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -25,11 +31,11 @@ public class ProductMainFormController {
     public JFXTextArea txtProductDescription;
     public JFXButton btnSave;
     public JFXTextField txtSearch;
-    public TableView tblProduct;
-    public TableColumn colProductid;
-    public TableColumn colDescription;
-    public TableColumn colShowMore;
-    public TableColumn colDelete;
+    public TableView<ProductTm> tblProduct;
+    public TableColumn<ProductTm,Integer> colProductid;
+    public TableColumn<ProductTm,String> colDescription;
+    public TableColumn<ProductTm,String> colShowMore;
+    public TableColumn<ProductTm,Button> colDelete;
     public JFXTextField txtSelectedProductCode;
     public JFXTextArea txtSelectedDescription;
     public TableView tblProductName;
@@ -43,10 +49,17 @@ public class ProductMainFormController {
 
     ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
+    String searchText = "";
     public void initialize(){
         loadProductId();
-    }
+        colProductid.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colShowMore.setCellValueFactory(new PropertyValueFactory<>("showMoreBtn"));
+        colDelete.setCellValueFactory(new PropertyValueFactory<>("deleteBtn"));
 
+        loadAllProducts(searchText);
+
+    }
     private void loadProductId() {
         try {
             txtProductCode.setText(String.valueOf(productBo.getLastProductId()));
@@ -77,6 +90,24 @@ public class ProductMainFormController {
     }
 
     private void loadAllProducts(String searchText){
+        ObservableList<ProductTm> oblist = FXCollections.observableArrayList();
 
+        try {
+            for(ProductDTO p : productBo.findAllProducts()){
+                Button showMore = new Button("Show More");
+                Button deleteBtn = new Button("Delete");
+                ProductTm tm = new ProductTm(
+                        p.getCode(),
+                        p.getDescription(),
+                        showMore,
+                        deleteBtn
+                );
+                oblist.add(tm);
+            }
+
+            tblProduct.setItems(oblist);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
