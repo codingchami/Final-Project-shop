@@ -14,7 +14,8 @@ public class BatchBoImpl implements BatchBo {
     BatchDao batchDao = DaoFactory.getInstance().getDao(DaoType.BATCH);
     @Override
     public boolean saveBatch(BatchDTO dto) throws SQLException, ClassNotFoundException {
-        return batchDao.save(new Batch(
+        return batchDao.save(
+                new Batch(
                 dto.getCode(),
                 dto.getBarcode(),
                 dto.getQtyOnHand(),
