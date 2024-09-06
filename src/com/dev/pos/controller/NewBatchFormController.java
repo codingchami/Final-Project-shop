@@ -23,7 +23,15 @@ public class NewBatchFormController {
     public JFXTextArea txtDescription;
     public JFXButton btnSave;
 
+    public void initialize(){
+        setQRcode();
+    }
+
     public void btnSaveOnAction(ActionEvent actionEvent) {
+    }
+
+    private void setQRcode(){
+
     }
 
 
