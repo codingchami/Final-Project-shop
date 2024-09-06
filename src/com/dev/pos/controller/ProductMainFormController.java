@@ -13,7 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -46,6 +48,7 @@ public class ProductMainFormController {
     public TableColumn colShowPrice;
     public TableColumn colSellingPrice;
     public TableColumn colNameDelete;
+    public JFXButton btnNewBatch;
 
     ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
@@ -58,6 +61,12 @@ public class ProductMainFormController {
         colDelete.setCellValueFactory(new PropertyValueFactory<>("deleteBtn"));
 
         loadAllProducts(searchText);
+
+        tblProduct.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue!=null){
+                setData(newValue);
+            }
+        });
 
     }
     private void loadProductId() {
@@ -76,9 +85,47 @@ public class ProductMainFormController {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
+       try{
+           if(btnSave.getText().equalsIgnoreCase("Save Product")){
+               boolean isSaved = productBo.saveProduct(new ProductDTO(
+                       Integer.valueOf(txtProductCode.getText()),
+                       txtProductDescription.getText()
+               ));
+
+               if(isSaved){
+                   new Alert(Alert.AlertType.INFORMATION,"Product has been saved...!").show();
+                   loadAllProducts(searchText);
+                   loadProductId();
+                   clear();
+               }else{
+                   new Alert(Alert.AlertType.ERROR,"Something went wrong!....").show();
+               }
+           }else{
+               boolean isUpdated = productBo.updateProduct(new ProductDTO(
+                       Integer.valueOf(txtProductCode.getText()),
+                       txtProductDescription.getText()
+               ));
+
+               if(isUpdated){
+                   new Alert(Alert.AlertType.INFORMATION,"Product has been updated...!").show();
+                   loadAllProducts(searchText);
+                   loadProductId();
+                   btnSave.setText("Save Product");
+                   clear(); 
+               }
+           }
+       }catch (SQLException | ClassNotFoundException e){
+           e.printStackTrace();
+       }
     }
 
-    public void btnAddNewBatchOnAction(ActionEvent actionEvent) {
+    public void btnAddNewBatchOnAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Parent load = FXMLLoader.load(getClass().getResource("../view/NewBatchForm.fxml"));
+        stage.setScene(new Scene(load));
+        stage.show();
+        stage.centerOnScreen();
+
     }
 
 
@@ -109,5 +156,23 @@ public class ProductMainFormController {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setData(ProductTm newValue){
+
+        btnNewBatch.setDisable(false);
+        btnSave.setText("Update Product");
+        txtProductCode.setText(String.valueOf(newValue.getCode()));
+        txtSelectedProductCode.setText(String.valueOf(newValue.getCode()));
+
+        txtProductDescription.setText(newValue.getDescription());
+        txtSelectedDescription.setText(newValue.getDescription());
+
+    }
+
+    private void clear(){
+        txtProductDescription.clear();
+        txtSelectedProductCode.clear();
+        txtSelectedDescription.clear();
     }
 }

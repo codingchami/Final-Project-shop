@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="context" prefHeight="613.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dev.pos.controller.NewBatchFormController">
+   <children>
+      <Label layoutX="23.0" layoutY="26.0" text="Batch Management" textFill="#0a8686">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="23.0" layoutY="71.0" prefHeight="11.0" prefWidth="499.0" />
+      <JFXTextField fx:id="txtQTY" alignment="CENTER" layoutX="300.0" layoutY="91.0" prefHeight="31.0" prefWidth="221.0" promptText="QTY" style="-fx-background-color: white;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXTextField>
+      <ImageView fx:id="imgQR" fitHeight="230.0" fitWidth="255.0" layoutX="23.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXTextField fx:id="txtBuyingPrice" alignment="CENTER" layoutX="301.0" layoutY="135.0" prefHeight="31.0" prefWidth="221.0" promptText="Buying Price" style="-fx-background-color: white;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtSellingPrice" alignment="CENTER" layoutX="300.0" layoutY="235.0" prefHeight="31.0" prefWidth="221.0" promptText="Selling Price" style="-fx-background-color: white;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtShowPrice" alignment="CENTER" layoutX="301.0" layoutY="185.0" prefHeight="31.0" prefWidth="221.0" promptText="Show Price" style="-fx-background-color: white;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="301.0" layoutY="288.0" prefHeight="21.0" prefWidth="75.0" text="Discount" textFill="#113601">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXRadioButton fx:id="rdNo" layoutX="396.0" layoutY="288.0" selected="true" text="No" textFill="#113601">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="discount" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="rdYes" layoutX="458.0" layoutY="288.0" text="Yes" textFill="#113601">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXRadioButton>
+      <JFXTextField fx:id="txtProductCode" alignment="CENTER" layoutX="23.0" layoutY="336.0" prefHeight="31.0" prefWidth="332.0" promptText="Product Code" style="-fx-background-color: white;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextArea fx:id="txtDescription" layoutX="23.0" layoutY="380.0" prefHeight="204.0" prefWidth="332.0" promptText="Product Description">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXTextArea>
+      <JFXButton fx:id="btnSave" layoutX="396.0" layoutY="546.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="161.0" style="-fx-background-color: #005C53;" text="Save Batch" textFill="#fcf9f9">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>
