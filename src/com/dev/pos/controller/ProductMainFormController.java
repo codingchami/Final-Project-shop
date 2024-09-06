@@ -126,6 +126,7 @@ public class ProductMainFormController {
         stage.show();
         stage.centerOnScreen();
 
+
     }
 
 

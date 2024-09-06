@@ -1,5 +1,6 @@
 package com.dev.pos.util.security.qr;
 
+import java.util.Date;
 import java.util.Random;
 
 public class QRdataGenerator {
@@ -11,7 +12,7 @@ public class QRdataGenerator {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
             sb.append(DATA.charAt(
-                    new Random().nextInt(45)
+                    new Random().nextInt(DATA.length())
             ));
         }
         return sb.toString();
