@@ -1,6 +1,6 @@
 package com.dev.pos.Entity;
 
-public class Batch {
+public class Batch implements SuperEntity {
 
     private String code;
     private String barcode;
