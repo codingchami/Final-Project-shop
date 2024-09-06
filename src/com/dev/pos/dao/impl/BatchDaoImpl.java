@@ -1,6 +1,7 @@
 package com.dev.pos.dao.impl;
 
 import com.dev.pos.Entity.Batch;
+import com.dev.pos.dao.CrudUtil;
 import com.dev.pos.dao.custom.BatchDao;
 
 import java.sql.SQLException;
@@ -10,7 +11,18 @@ public class BatchDaoImpl implements BatchDao {
 
     @Override
     public boolean save(Batch batch) throws SQLException, ClassNotFoundException {
-        return false;
+        String sql = "INSERT INTO batch VALUES(?,?,?,?,?,?,?,?)";
+        return CrudUtil.execute(
+                sql,
+                batch.getCode(),
+                batch.getBarcode(),
+                batch.getQtyOnHand(),
+                batch.getSellingPrice(),
+                batch.isAvailable(),
+                batch.getShowPrice(),
+                batch.getBuyingPrice(),
+                batch.getProductCode()
+        );
     }
 
     @Override
