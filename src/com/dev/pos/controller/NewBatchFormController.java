@@ -15,10 +15,12 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.apache.commons.codec.binary.Base64;
 
 import java.awt.image.BufferedImage;
@@ -45,11 +47,13 @@ public class NewBatchFormController {
     String uniqueData = null;
     BufferedImage bufferedImage = null;
 
+    Stage stage = new Stage();
+
     public void initialize() throws WriterException {
         setQRcode();
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    public void btnSaveOnAction(ActionEvent actionEvent) throws InterruptedException {
         try {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         javax.imageio.ImageIO.write(bufferedImage,"png",baos);
@@ -70,7 +74,15 @@ public class NewBatchFormController {
                 Integer.parseInt(txtProductCode.getText())
             );
 
-        batchbo.saveBatch(dto);
+            boolean isSaved = batchbo.saveBatch(dto);
+
+            if(isSaved){
+                new Alert(Alert.AlertType.INFORMATION,"Batch has been saved!....").show();
+                Thread.sleep(3000);
+                this.stage.close();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Something went wrong!...").show();
+            }
 
         } catch (IOException | SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -94,9 +106,10 @@ public class NewBatchFormController {
         imgQR.setImage(image);
     }
 
-    public void setProductCode(int code,String description){
+    public void setProductCode(int code, String description, Stage stage){
         txtProductCode.setText(String.valueOf(code));
         txtDescription.setText(description);
+        this.stage = stage;
     }
 
 

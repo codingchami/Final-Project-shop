@@ -126,12 +126,14 @@ public class ProductMainFormController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/NewBatchForm.fxml"));
             Parent parent = fxmlLoader.load();
             NewBatchFormController controller = fxmlLoader.getController();
+            Stage stage = new Stage();
             controller.setProductCode(
                     Integer.parseInt(txtSelectedProductCode.getText()),
-                    txtSelectedDescription.getText()
+                    txtSelectedDescription.getText(),
+                    stage
             );
 
-            Stage stage = new Stage();
+
             stage.setScene(new Scene(parent));
             stage.show();
             stage.centerOnScreen();
