@@ -89,7 +89,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXTextArea>
-      <TableView fx:id="tblProductName" layoutX="533.0" layoutY="339.0" prefHeight="533.0" prefWidth="686.0">
+      <TableView fx:id="tblProductMain" layoutX="533.0" layoutY="339.0" prefHeight="533.0" prefWidth="686.0">
          <columns>
             <TableColumn fx:id="colNo" prefWidth="65.0" text="#" />
             <TableColumn fx:id="colQty" prefWidth="76.0" text="QTY" />

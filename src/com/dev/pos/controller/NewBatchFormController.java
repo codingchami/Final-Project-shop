@@ -58,7 +58,7 @@ public class NewBatchFormController {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         javax.imageio.ImageIO.write(bufferedImage,"png",baos);
         byte[] arr = baos.toByteArray();
-            String barcode = Base64.encodeBase64String(arr);
+        String barcode = Base64.encodeBase64String(arr);
 
 
 

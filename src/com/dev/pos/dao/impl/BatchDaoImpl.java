@@ -49,4 +49,10 @@ public class BatchDaoImpl implements BatchDao {
     public List<Batch> search(String s) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public List<Batch> findAllBatch(int productCode) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM batch WHERE product_code =?";
+        return CrudUtil.execute(sql,productCode);
+    }
 }

@@ -2,6 +2,7 @@ package com.dev.pos.controller;
 
 import com.dev.pos.Enum.BoType;
 import com.dev.pos.bo.BoFactory;
+import com.dev.pos.bo.custom.BatchBo;
 import com.dev.pos.bo.custom.ProductBo;
 import com.dev.pos.dao.DatabaseAccessCode;
 import com.dev.pos.dto.ProductDTO;
@@ -40,7 +41,7 @@ public class ProductMainFormController {
     public TableColumn<ProductTm,Button> colDelete;
     public JFXTextField txtSelectedProductCode;
     public JFXTextArea txtSelectedDescription;
-    public TableView tblProductName;
+    public TableView tblProductMain;
     public TableColumn colNo;
     public TableColumn colQty;
     public TableColumn colBuyingprice;
@@ -50,8 +51,9 @@ public class ProductMainFormController {
     public TableColumn colNameDelete;
     public JFXButton btnNewBatch;
 
-    ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
+    ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
+    BatchBo batchBo = BoFactory.getInstance().getBo(BoType.BATCH);
     String searchText = "";
     public void initialize(){
         loadProductId();
@@ -189,5 +191,9 @@ public class ProductMainFormController {
         txtProductDescription.clear();
         txtSelectedProductCode.clear();
         txtSelectedDescription.clear();
+    }
+
+    private void loadBatchData(){
+
     }
 }
