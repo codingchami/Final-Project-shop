@@ -8,6 +8,8 @@ import com.dev.pos.dao.custom.BatchDao;
 import com.dev.pos.dto.BatchDTO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BatchBoImpl implements BatchBo {
 
@@ -25,5 +27,29 @@ public class BatchBoImpl implements BatchBo {
                 dto.getBuyingPrice(),
                 dto.getProductCode()
         ));
+    }
+
+    @Override
+    public List<BatchDTO> findAllBatch(int productCode) throws SQLException, ClassNotFoundException {
+        List<Batch> allBatch = batchDao.findAllBatch(productCode);
+
+        List<BatchDTO> dtoList = new ArrayList<>();
+
+        if(allBatch!=null){
+            for(Batch b : allBatch){
+                dtoList.add(new BatchDTO(
+                        b.getCode(),
+                        b.getBarcode(),
+                        b.getQtyOnHand(),
+                        b.getSellingPrice(),
+                        b.isAvailable(),
+                        b.getShowPrice(),
+                        b.getBuyingPrice(),
+                        b.getProductCode()
+                ));
+            }
+        }
+
+        return dtoList;
     }
 }
