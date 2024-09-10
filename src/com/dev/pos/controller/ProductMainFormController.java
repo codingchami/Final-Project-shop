@@ -65,6 +65,14 @@ public class ProductMainFormController {
         colShowMore.setCellValueFactory(new PropertyValueFactory<>("showMoreBtn"));
         colDelete.setCellValueFactory(new PropertyValueFactory<>("deleteBtn"));
 
+        colNo.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colBuyingprice.setCellValueFactory(new PropertyValueFactory<>("buyingPrice"));
+        colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        colShowPrice.setCellValueFactory(new PropertyValueFactory<>("showPrice"));
+        colSellingPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colNameDelete.setCellValueFactory(new PropertyValueFactory<>("button"));
+
         loadAllProducts(searchText);
 
         tblProduct.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -188,6 +196,8 @@ public class ProductMainFormController {
         txtProductDescription.setText(newValue.getDescription());
         txtSelectedDescription.setText(newValue.getDescription());
 
+        loadBatchData(newValue.getCode());
+
     }
 
     private void clear(){
@@ -200,8 +210,9 @@ public class ProductMainFormController {
 
         try {
             ObservableList<BatchTm> oblist = FXCollections.observableArrayList();
-            List<BatchDTO> allBatch = batchBo.findAllBatch(code);
-            if(allBatch !=null){
+
+            if(batchBo.findAllBatch(code)!=null){
+                List<BatchDTO> allBatch = batchBo.findAllBatch(code);
                 for(BatchDTO b : allBatch){
                     Button button = new Button("Delete");
                     BatchTm tm = new BatchTm(
