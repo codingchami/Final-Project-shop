@@ -81,6 +81,16 @@ public class ProductMainFormController {
             }
         });
 
+        tblProductMain.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue!=null){
+                try{
+                    loadExternalUI(true,newValue);
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
     private void loadProductId() {
         try {
@@ -133,26 +143,7 @@ public class ProductMainFormController {
     }
 
     public void btnAddNewBatchOnAction(ActionEvent actionEvent) throws IOException {
-
-
-        if(txtSelectedProductCode.getText().trim().length()>0){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/NewBatchForm.fxml"));
-            Parent parent = fxmlLoader.load();
-            NewBatchFormController controller = fxmlLoader.getController();
-            Stage stage = new Stage();
-            controller.setProductCode(
-                    Integer.parseInt(txtSelectedProductCode.getText()),
-                    txtSelectedDescription.getText(),
-                    stage
-            );
-
-
-            stage.setScene(new Scene(parent));
-            stage.show();
-            stage.centerOnScreen();
-        }else{
-            new Alert(Alert.AlertType.WARNING,"Please select valid Product....!").show();
-        }
+        loadExternalUI(false,null);
 
     }
 
@@ -233,5 +224,31 @@ public class ProductMainFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadExternalUI(boolean state,BatchTm tm) throws IOException {
+        if(txtSelectedProductCode.getText().trim().length()>0){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/NewBatchForm.fxml"));
+            Parent parent = fxmlLoader.load();
+            NewBatchFormController controller = fxmlLoader.getController();
+            Stage stage = new Stage();
+            controller.setProductCode(
+                    Integer.parseInt(txtSelectedProductCode.getText()),
+                    txtSelectedDescription.getText(),
+                    stage,
+                    state,
+                    tm
+            );
+
+
+            stage.setScene(new Scene(parent));
+            stage.show();
+            stage.centerOnScreen();
+
+
+        }else{
+            new Alert(Alert.AlertType.WARNING,"Please select valid Product....!").show();
+        }
+
     }
 }

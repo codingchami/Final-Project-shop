@@ -54,4 +54,23 @@ public class BatchBoImpl implements BatchBo {
 
 
     }
+
+    @Override
+    public BatchDTO findBatch(String code) throws SQLException, ClassNotFoundException {
+        Batch batch = batchDao.find(code);
+
+        if(batch!=null){
+            return new BatchDTO(
+                    batch.getCode(),
+                    batch.getBarcode(),
+                    batch.getQtyOnHand(),
+                    batch.getSellingPrice(),
+                    batch.isAvailable(),
+                    batch.getShowPrice(),
+                    batch.getBuyingPrice(),
+                    batch.getProductCode()
+            );
+        }
+        return null;
+    }
 }

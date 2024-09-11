@@ -4,6 +4,7 @@ import com.dev.pos.Enum.BoType;
 import com.dev.pos.bo.BoFactory;
 import com.dev.pos.bo.custom.BatchBo;
 import com.dev.pos.dto.BatchDTO;
+import com.dev.pos.dto.tm.BatchTm;
 import com.dev.pos.util.security.qr.QRdataGenerator;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -106,10 +107,28 @@ public class NewBatchFormController {
         imgQR.setImage(image);
     }
 
-    public void setProductCode(int code, String description, Stage stage){
-        txtProductCode.setText(String.valueOf(code));
-        txtDescription.setText(description);
+    public void setProductCode(int code, String description, Stage stage, boolean state, BatchTm tm){
+
         this.stage = stage;
+
+        try{
+            if(state){
+                batchbo.findBatch(tm.getCode());
+                txtQTY.setText(String.valueOf(tm.getQty()));
+                txtBuyingPrice.setText(String.valueOf(tm.getBuyingPrice()));
+                txtSellingPrice.setText(String.valueOf(tm.getSellingPrice()));
+                txtShowPrice.setText(String.valueOf(tm.getShowPrice()));
+                discount.setUserData(tm.isDiscount());
+                txtProductCode.setText(String.valueOf(code));
+                txtDescription.setText(description);
+            }else{
+                stage.close();
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+
     }
 
 

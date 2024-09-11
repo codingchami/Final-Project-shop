@@ -10,4 +10,6 @@ public interface BatchBo extends SuperBo {
     public boolean saveBatch(BatchDTO dto) throws SQLException, ClassNotFoundException;
 
     public List<BatchDTO> findAllBatch(int productCode) throws SQLException, ClassNotFoundException;
+
+    public BatchDTO findBatch(String code) throws SQLException, ClassNotFoundException;
 }

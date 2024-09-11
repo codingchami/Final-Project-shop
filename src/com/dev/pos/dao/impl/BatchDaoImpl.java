@@ -40,6 +40,20 @@ public class BatchDaoImpl implements BatchDao {
 
     @Override
     public Batch find(String s) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM batch WHERE CODE =?";
+        ResultSet set = CrudUtil.execute(sql, s);
+        if(set.next()){
+            return new Batch(
+                    set.getString(1),
+                    set.getString(2),
+                    set.getInt(3),
+                    set.getDouble(4),
+                    set.getBoolean(5),
+                    set.getDouble(6),
+                    set.getDouble(7),
+                    set.getInt(8)
+            );
+        }
         return null;
     }
 
