@@ -48,8 +48,10 @@ public class BatchBoImpl implements BatchBo {
                         b.getProductCode()
                 ));
             }
+            return dtoList;
         }
+        return null;
 
-        return dtoList;
+
     }
 }

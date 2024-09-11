@@ -210,9 +210,10 @@ public class ProductMainFormController {
 
         try {
             ObservableList<BatchTm> oblist = FXCollections.observableArrayList();
+            List<BatchDTO> allBatch = batchBo.findAllBatch(code);
 
-            if(batchBo.findAllBatch(code)!=null){
-                List<BatchDTO> allBatch = batchBo.findAllBatch(code);
+            if(allBatch!=null){
+
                 for(BatchDTO b : allBatch){
                     Button button = new Button("Delete");
                     BatchTm tm = new BatchTm(
