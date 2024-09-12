@@ -78,11 +78,13 @@ public class NewBatchFormController {
             boolean isSaved = batchbo.saveBatch(dto);
 
             if(isSaved){
+
                 new Alert(Alert.AlertType.INFORMATION,"Batch has been saved!....").show();
                 Thread.sleep(3000);
                 this.stage.close();
+
             }else{
-                new Alert(Alert.AlertType.ERROR,"Something went wrong!...").show();
+                new Alert(Alert.AlertType.ERROR,"Something went wrong,check again!...").show();
             }
 
         } catch (IOException | SQLException | ClassNotFoundException e) {
